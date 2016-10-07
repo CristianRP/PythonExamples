@@ -14,18 +14,13 @@ def extract_month(str_fecha):
         '12': 'Diciembre'
     }
 
-    return months[str_fecha]
+    return months[str_fecha[:2]]
 
 def extract_year(str_short_date):
     years = {}
     for i in range(10, 100, 1):
         years[i] = '20' + str(i)
 
-    return years[int(str_short_date)]
+    return years[int(str_short_date[2:])]
 
-def extract_complete_date(str_date):
-    for i in str_date:
-        print(':v' , i)
-
-#print('{0} de {1}'.format(extract_month('1701'),extract_year('1701')))
-print (extract_complete_date('holi'))
+print('{0} de {1}'.format(extract_month('0117'),extract_year('0117')))
