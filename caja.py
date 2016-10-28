@@ -7,6 +7,7 @@ def cobro():
     print("Ingresa los articulos por cobrar y escribe 'terminar'\npara finalizar la lista.")
     abarrotes = []
     precios = []
+    cantidades = []
     finalice = True
     while finalice:
         producto = input("Ingresa los abarrotes: ")
@@ -14,12 +15,18 @@ def cobro():
             finalice = False
         else:
             precio = float(input("Ingresa el precio (Q):"))
+            cantidad = int(input("Ingresa la cantidad: "))
             abarrotes.append(producto.strip())
             precios.append(precio)
-    print(abarrotes)
-    print(precios)
-    print(total_compra(precios))
-    facturacion(abarrotes, precios, total_compra(precios))
+            cantidades.append(cantidad)
+    facturacion(abarrotes, precios, total_productos(precios, cantidades), cantidades)
+
+def total_productos(precios, cantidad):
+    multi = 0
+    for i in range(len(precios)):
+        total = precios[i] * cantidad[i]
+        multi += total
+    return multi
 
 def total_compra(precios):
     sum = 0
@@ -27,7 +34,7 @@ def total_compra(precios):
         sum = sum + precios[i]
     return sum
 
-def facturacion(productos, precios, total):
+def facturacion(productos, precios, total, cantidades):
     print("Ingresa los datos para la factura")
     nombre = input("Nombre: ")
     nit = input("Nit: ")
@@ -38,8 +45,9 @@ def facturacion(productos, precios, total):
     print(" \tNombre: {0}".format(nombre))
     print(" \tNit: {0}".format(nit))
     print("*__________________________________*")
+    print("*Producto......Cantidad......Precio*")
     for i in range(len(productos)):
-        print("\t{0}....................{1}".format(productos[i],str(precios[i])))
+        print("\t{0}............{1}........{2}".format(productos[i],str(cantidades[i]),str(precios[i])))
     print("*__________________________________*")
     print("*                        TOTAL {0}*".format(total))
     print("*==================================*")
